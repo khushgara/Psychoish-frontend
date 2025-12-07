@@ -1,0 +1,148 @@
+.therapies-page {
+  min-height: 100vh;
+}
+
+.therapies-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.therapies-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.therapies-hero p {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+.therapies-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.therapies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.therapy-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.therapy-card:hover {
+  transform: translateY(-5px);
+  border-color: #667eea;
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.2);
+}
+
+.therapy-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.therapy-card h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.therapy-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.therapy-section {
+  margin-bottom: 1.5rem;
+}
+
+.therapy-section h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+
+.therapy-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.therapy-section li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text);
+}
+
+.therapy-section li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.best-for {
+  color: var(--text);
+  background: var(--background);
+  padding: 0.8rem;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.consultation-cta {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+}
+
+.consultation-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.consultation-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: white;
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .therapies-hero h1 {
+    font-size: 2rem;
+  }
+
+  .therapies-grid {
+    grid-template-columns: 1fr;
+  }
+}
