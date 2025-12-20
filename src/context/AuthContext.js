@@ -10,10 +10,16 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
+  // Create axios instance with base URL
+  const axiosInstance = axios.create({
+    baseURL: API_URL,
+  });
+
   // Configure axios defaults
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       fetchCurrentUser();
     } else {
       setLoading(false);
@@ -47,6 +53,7 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         return { success: true };
       }
     } catch (error) {
@@ -72,6 +79,7 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         return { success: true };
       }
     } catch (error) {
@@ -87,6 +95,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("token");
     delete axios.defaults.headers.common["Authorization"];
+    delete axiosInstance.defaults.headers.common["Authorization"];
   };
 
   const value = {
@@ -97,6 +106,7 @@ export const AuthProvider = ({ children }) => {
     signup,
     logout,
     isAuthenticated: !!token,
+    axiosInstance,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

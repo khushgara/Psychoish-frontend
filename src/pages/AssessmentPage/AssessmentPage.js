@@ -25,7 +25,7 @@ const AssessmentPage = () => {
 
   const fetchAssessmentQuestions = async () => {
     try {
-      const response = await axiosInstance.get(`/api/assessments/questions/${type}`);
+      const response = await axiosInstance.get(`/assessments/questions/${type}`);
       setAssessment(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -67,13 +67,19 @@ const AssessmentPage = () => {
 
     setSubmitting(true);
     try {
-      const response = await axiosInstance.post("/api/assessments/submit", {
+      // Convert answers object to array to maintain order and match backend expectation
+      const responses = assessment.questions.map(q => ({
+        questionId: q.id,
+        value: answers[q.id]
+      }));
+
+      const response = await axiosInstance.post("/assessments/submit", {
         assessmentType: type,
-        responses: answers,
+        responses: responses,
       });
 
       // Navigate to results page
-      navigate(`/results/${response.data.data.assessmentId}`);
+      navigate(`/results/${response.data.result.id}`);
     } catch (error) {
       console.error("Error submitting assessment:", error);
       alert("Failed to submit assessment. Please try again.");

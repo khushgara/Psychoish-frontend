@@ -9,8 +9,9 @@ const Profile = () => {
     name: "",
     email: "",
     phone: "",
-    age: "",
+    date_of_birth: "",
     gender: "",
+    bio: "",
   });
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -27,8 +28,13 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axiosInstance.get("/api/profile");
-      setProfile(response.data.data);
+      const response = await axiosInstance.get("/profile");
+      const profileData = response.data.data;
+      // Format date for input field (YYYY-MM-DD)
+      if (profileData.date_of_birth) {
+        profileData.date_of_birth = new Date(profileData.date_of_birth).toISOString().split('T')[0];
+      }
+      setProfile(profileData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -38,8 +44,8 @@ const Profile = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axiosInstance.get("/api/assessments/stats");
-      setStats(response.data.data);
+      const response = await axiosInstance.get("/assessments/stats");
+      setStats(response.data.stats || { totalAssessments: 0, lastAssessment: null });
     } catch (error) {
       console.error("Error fetching stats:", error);
     }
@@ -57,7 +63,7 @@ const Profile = () => {
     setSaving(true);
     
     try {
-      await axiosInstance.put("/api/profile", profile);
+      await axiosInstance.put("/profile", profile);
       alert("Profile updated successfully!");
       setEditing(false);
     } catch (error) {
@@ -154,16 +160,13 @@ const Profile = () => {
               </div>
 
               <div className="form-group">
-                <label>Age</label>
+                <label>Date of Birth</label>
                 <input
-                  type="number"
-                  name="age"
-                  value={profile.age || ""}
+                  type="date"
+                  name="date_of_birth"
+                  value={profile.date_of_birth || ""}
                   onChange={handleChange}
                   disabled={!editing}
-                  placeholder="Enter age"
-                  min="1"
-                  max="120"
                 />
               </div>
 
@@ -181,6 +184,18 @@ const Profile = () => {
                   <option value="other">Other</option>
                   <option value="prefer-not-to-say">Prefer not to say</option>
                 </select>
+              </div>
+
+              <div className="form-group full-width">
+                <label>Bio</label>
+                <textarea
+                  name="bio"
+                  value={profile.bio || ""}
+                  onChange={handleChange}
+                  disabled={!editing}
+                  placeholder="Tell us a bit about yourself"
+                  rows="4"
+                />
               </div>
             </div>
 

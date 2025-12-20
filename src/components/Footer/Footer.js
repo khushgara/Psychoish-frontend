@@ -9,7 +9,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="footer footer-enhanced">
+    <footer className="footer">
       {/* Back to Top Button */}
       <a
         href="#top"
@@ -20,7 +20,7 @@ const Footer = () => {
         ↑
       </a>
 
-      <div className="footer-container footer-grid-1">
+      <div className="footer-content">
         {/* Logo & Description */}
         <div className="footer-section">
           <div className="footer-brand">
@@ -32,15 +32,15 @@ const Footer = () => {
           </div>
 
           {/* Social Media Icons */}
-          <div className="footer-social">
+          <div className="social-links">
             <a href="#" className="social-icon" aria-label="Facebook">
-              <span>fb</span>
+              <span>f</span>
             </a>
             <a href="#" className="social-icon" aria-label="Twitter">
-              <span>tw</span>
+              <span>𝕏</span>
             </a>
             <a href="#" className="social-icon" aria-label="Instagram">
-              <span>ig</span>
+              <span>📸</span>
             </a>
             <a href="#" className="social-icon" aria-label="LinkedIn">
               <span>in</span>

@@ -3,6 +3,7 @@
   color: var(--text);
   padding: 3rem 2rem 1.5rem;
   border-top: 2px solid var(--border);
+  position: relative;
 }
 
 .footer-content {
@@ -65,7 +66,7 @@
   color: var(--text);
   text-decoration: none;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.25rem;
   transition: all 0.3s ease;
 }
 
@@ -141,4 +142,61 @@
   .newsletter-form button {
     width: 100%;
   }
+}
+
+.back-to-top {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px var(--shadow);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+.footer {
+  position: relative; /* Needed for absolute positioning of back-to-top */
+}
+
+.footer-contact {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.contact-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--hover-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1rem;
 }

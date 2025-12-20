@@ -45,6 +45,32 @@
   border-color: var(--primary);
 }
 
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 15px; /* Adjust based on input padding/height */
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.password-toggle-btn:hover {
+  opacity: 1;
+}
+
 .login-button {
   width: 100%;
   padding: 12px;

@@ -8,6 +8,7 @@ import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AssessmentPage from "./pages/AssessmentPage/AssessmentPage";
 import Results from "./pages/Results/Results";
+import AllResults from "./pages/Results/AllResults";
 import Profile from "./pages/Profile/Profile";
 import Consultation from "./pages/Consultation/Consultation";
 import About from "./pages/About/About";
@@ -64,6 +65,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <AssessmentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/results/history"
+              element={
+                <ProtectedRoute>
+                  <AllResults />
                 </ProtectedRoute>
               }
             />

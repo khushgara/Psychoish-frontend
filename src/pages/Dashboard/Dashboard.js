@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user, axiosInstance } = useContext(AuthContext);
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/results/dashboard");
+      const response = await axiosInstance.get("/results/dashboard");
       if (response.data.success) {
         setSummary(response.data.summary);
       }
@@ -135,9 +135,14 @@ const Dashboard = () => {
       {/* Recent Assessments */}
       {summary?.recentAssessments && summary.recentAssessments.length > 0 && (
         <div className="recent-section">
-          <h2>Recent Assessments</h2>
+          <div className="section-header-flex">
+            <h2>Recent Assessments</h2>
+            <Link to="/results/history" className="see-all-link">
+              See All →
+            </Link>
+          </div>
           <div className="recent-list">
-            {summary.recentAssessments.map((assessment) => (
+            {summary.recentAssessments.slice(0, 3).map((assessment) => (
               <div key={assessment.id} className="recent-item">
                 <div className="recent-info">
                   <h4>{assessment.type.toUpperCase()}</h4>
