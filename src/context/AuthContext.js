@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
-const API_URL = "https://psychoish-backend-production.up.railway.app/api";
+const API_URL = "psychoish-backend-production-5efd.up.railway.app";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
