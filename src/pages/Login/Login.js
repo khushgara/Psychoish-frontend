@@ -5,7 +5,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
-  const { theme, themeMode } = useContext(ThemeContext);
+  const { themeMode } = useContext(ThemeContext);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import "./Dashboard.css";
 
@@ -10,21 +9,21 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  const fetchDashboardData = async () => {
-    try {
-      const response = await axiosInstance.get("/results/dashboard");
-      if (response.data.success) {
-        setSummary(response.data.summary);
+    const fetchDashboardData = async () => {
+      try {
+        const response = await axiosInstance.get("/results/dashboard");
+        if (response.data.success) {
+          setSummary(response.data.summary);
+        }
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch dashboard data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchDashboardData();
+  }, [axiosInstance]);
 
   const assessmentTypes = [
     {

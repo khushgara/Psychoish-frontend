@@ -10,35 +10,47 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
-  // Create axios instance with base URL
-  const axiosInstance = axios.create({
+  // Create axios instance with base URL - memoized to prevent recreation on every render
+  const [axiosInstance] = useState(() => axios.create({
     baseURL: API_URL,
-  });
+  }));
 
-  // Configure axios defaults
+  const logout = React.useCallback(() => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("token");
+    delete axios.defaults.headers.common["Authorization"];
+    delete axiosInstance.defaults.headers.common["Authorization"];
+  }, [axiosInstance]);
+
+  // Configure axios defaults and fetch user
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      
+      const fetchCurrentUser = async () => {
+        try {
+          const response = await axios.get(`${API_URL}/auth/me`);
+          if (response.data.success) {
+            setUser(response.data.user);
+          }
+        } catch (error) {
+          console.error("Failed to fetch user:", error);
+          logout();
+        } finally {
+          setLoading(false);
+        }
+      };
+
       fetchCurrentUser();
     } else {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, axiosInstance, logout]); // Added axiosInstance dependency, but it's stable now
 
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/auth/me`);
-      if (response.data.success) {
-        setUser(response.data.user);
-      }
-    } catch (error) {
-      console.error("Failed to fetch user:", error);
-      logout();
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Kept for external use if needed, but the primary fetch is now inside the effect
+
 
   const login = async (email, password) => {
     try {
@@ -90,13 +102,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("token");
-    delete axios.defaults.headers.common["Authorization"];
-    delete axiosInstance.defaults.headers.common["Authorization"];
-  };
+
 
   const value = {
     user,

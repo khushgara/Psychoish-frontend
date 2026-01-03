@@ -15,21 +15,22 @@ const AllResults = () => {
       navigate("/login");
       return;
     }
-    fetchAllResults();
-  }, []);
-
-  const fetchAllResults = async () => {
-    try {
-      const response = await axiosInstance.get("/results/all");
-      if (response.data.success) {
-        setResults(response.data.results);
+    
+    const fetchAllResults = async () => {
+      try {
+        const response = await axiosInstance.get("/results/all");
+        if (response.data.success) {
+          setResults(response.data.results);
+        }
+      } catch (error) {
+        console.error("Error fetching results:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error fetching results:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchAllResults();
+  }, [isAuthenticated, navigate, axiosInstance]);
 
   const getSeverityColor = (severity) => {
     const colors = {

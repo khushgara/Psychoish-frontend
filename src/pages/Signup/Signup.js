@@ -97,10 +97,7 @@ const Signup = () => {
             />
           </div>
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // ... (existing helper functions)
 
         <div className="form-group">
             <label htmlFor="password">Password</label>

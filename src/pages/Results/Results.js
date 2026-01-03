@@ -17,20 +17,20 @@ const Results = () => {
       return;
     }
     
-    fetchResult();
-  }, [id]);
+    const fetchResult = async () => {
+      try {
+        const response = await axiosInstance.get(`/results/${id}`);
+        setResult(response.data.result);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching result:", error);
+        alert("Failed to load results. Please try again.");
+        navigate("/dashboard");
+      }
+    };
 
-  const fetchResult = async () => {
-    try {
-      const response = await axiosInstance.get(`/results/${id}`);
-      setResult(response.data.result);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching result:", error);
-      alert("Failed to load results. Please try again.");
-      navigate("/dashboard");
-    }
-  };
+    fetchResult();
+  }, [id, isAuthenticated, navigate, axiosInstance]);
 
   if (loading) {
     return (

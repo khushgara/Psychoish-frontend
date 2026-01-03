@@ -20,20 +20,20 @@ const AssessmentPage = () => {
       return;
     }
     
-    fetchAssessmentQuestions();
-  }, [type]);
+    const fetchAssessmentQuestions = async () => {
+      try {
+        const response = await axiosInstance.get(`/assessments/questions/${type}`);
+        setAssessment(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching assessment:", error);
+        alert("Failed to load assessment. Please try again.");
+        navigate("/dashboard");
+      }
+    };
 
-  const fetchAssessmentQuestions = async () => {
-    try {
-      const response = await axiosInstance.get(`/assessments/questions/${type}`);
-      setAssessment(response.data.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching assessment:", error);
-      alert("Failed to load assessment. Please try again.");
-      navigate("/dashboard");
-    }
-  };
+    fetchAssessmentQuestions();
+  }, [type, isAuthenticated, navigate, axiosInstance]);
 
   const handleAnswer = (questionId, value) => {
     setAnswers({

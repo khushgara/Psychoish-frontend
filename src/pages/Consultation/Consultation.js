@@ -18,6 +18,17 @@ const Consultation = () => {
     description: "",
   });
 
+  const fetchBookings = React.useCallback(async () => {
+    try {
+      const response = await axiosInstance.get("/consultations/my-bookings");
+      setBookings(response.data.bookings || []);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+      setLoading(false);
+    }
+  }, [axiosInstance]);
+
   useEffect(() => {
     if (user) {
       setFormData(prev => ({
@@ -28,18 +39,7 @@ const Consultation = () => {
       }));
     }
     fetchBookings();
-  }, [user]);
-
-  const fetchBookings = async () => {
-    try {
-      const response = await axiosInstance.get("/consultations/my-bookings");
-      setBookings(response.data.bookings || []);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-      setLoading(false);
-    }
-  };
+  }, [user, fetchBookings]);
 
   const handleChange = (e) => {
     setFormData({

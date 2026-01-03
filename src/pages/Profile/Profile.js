@@ -21,12 +21,7 @@ const Profile = () => {
     lastAssessment: null,
   });
 
-  useEffect(() => {
-    fetchProfile();
-    fetchStats();
-  }, []);
-
-  const fetchProfile = async () => {
+  const fetchProfile = React.useCallback(async () => {
     try {
       const response = await axiosInstance.get("/profile");
       const profileData = response.data.data;
@@ -40,16 +35,21 @@ const Profile = () => {
       console.error("Error fetching profile:", error);
       setLoading(false);
     }
-  };
+  }, [axiosInstance]);
 
-  const fetchStats = async () => {
+  const fetchStats = React.useCallback(async () => {
     try {
       const response = await axiosInstance.get("/assessments/stats");
       setStats(response.data.stats || { totalAssessments: 0, lastAssessment: null });
     } catch (error) {
       console.error("Error fetching stats:", error);
     }
-  };
+  }, [axiosInstance]);
+
+  useEffect(() => {
+    fetchProfile();
+    fetchStats();
+  }, [fetchProfile, fetchStats]);
 
   const handleChange = (e) => {
     setProfile({

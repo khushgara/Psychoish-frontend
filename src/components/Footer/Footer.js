@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
@@ -11,14 +12,14 @@ const Footer = () => {
   return (
     <footer className="footer">
       {/* Back to Top Button */}
-      <a
-        href="#top"
+      <button
+        type="button"
         className="back-to-top"
         onClick={scrollToTop}
         aria-label="Back to top"
       >
         ↑
-      </a>
+      </button>
 
       <div className="footer-content">
         {/* Logo & Description */}
@@ -33,18 +34,18 @@ const Footer = () => {
 
           {/* Social Media Icons */}
           <div className="social-links">
-            <a href="#" className="social-icon" aria-label="Facebook">
+            <button className="social-icon" aria-label="Facebook">
               <span>f</span>
-            </a>
-            <a href="#" className="social-icon" aria-label="Twitter">
+            </button>
+            <button className="social-icon" aria-label="Twitter">
               <span>𝕏</span>
-            </a>
-            <a href="#" className="social-icon" aria-label="Instagram">
+            </button>
+            <button className="social-icon" aria-label="Instagram">
               <span>📸</span>
-            </a>
-            <a href="#" className="social-icon" aria-label="LinkedIn">
+            </button>
+            <button className="social-icon" aria-label="LinkedIn">
               <span>in</span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -53,29 +54,29 @@ const Footer = () => {
           <h3>Quick Links</h3>
           <ul className="footer-links space-y-2">
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/" className="footer-link">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/about" className="footer-link">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/therapies" className="footer-link">
                 Therapies
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/blog" className="footer-link">
                 Blog
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/stories" className="footer-link">
                 Success Stories
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -85,29 +86,29 @@ const Footer = () => {
           <h3>Support</h3>
           <ul className="footer-links space-y-2">
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/faq" className="footer-link">
                 FAQs
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/contact" className="footer-link">
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/privacy" className="footer-link">
                 Privacy Policy
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/terms" className="footer-link">
                 Terms of Use
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="footer-link">
+              <Link to="/crisis" className="footer-link">
                 Crisis Resources
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

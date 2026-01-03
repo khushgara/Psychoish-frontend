@@ -79,10 +79,10 @@ const Contact = () => {
             <div className="social-links">
               <h3>Follow Us</h3>
               <div className="social-icons">
-                <a href="#" className="social-icon">📘</a>
-                <a href="#" className="social-icon">🐦</a>
-                <a href="#" className="social-icon">📷</a>
-                <a href="#" className="social-icon">💼</a>
+                <button type="button" className="social-icon">📘</button>
+                <button type="button" className="social-icon">🐦</button>
+                <button type="button" className="social-icon">📷</button>
+                <button type="button" className="social-icon">💼</button>
               </div>
             </div>
           </div>
