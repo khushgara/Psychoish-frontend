@@ -19,6 +19,7 @@ import FAQ from "./pages/FAQ/FAQ";
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 function AppContent() {
   const { theme } = useContext(ThemeContext);
@@ -33,6 +34,7 @@ function AppContent() {
       }}
     >
       <Router>
+        <ScrollToTop />
         <Navbar />
         <main
           style={{ 
