@@ -18,7 +18,7 @@ const AllResults = () => {
     
     const fetchAllResults = async () => {
       try {
-        const response = await axiosInstance.get("/results/all");
+        const response = await axiosInstance.get("/api/results/all");
         if (response.data.success) {
           setResults(response.data.results);
         }

@@ -23,7 +23,7 @@ const Profile = () => {
 
   const fetchProfile = React.useCallback(async () => {
     try {
-      const response = await axiosInstance.get("/profile");
+      const response = await axiosInstance.get("/api/profile");
       const profileData = response.data.data;
       // Format date for input field (YYYY-MM-DD)
       if (profileData.date_of_birth) {
@@ -39,7 +39,7 @@ const Profile = () => {
 
   const fetchStats = React.useCallback(async () => {
     try {
-      const response = await axiosInstance.get("/assessments/stats");
+      const response = await axiosInstance.get("/api/assessments/stats");
       setStats(response.data.stats || { totalAssessments: 0, lastAssessment: null });
     } catch (error) {
       console.error("Error fetching stats:", error);
@@ -63,7 +63,7 @@ const Profile = () => {
     setSaving(true);
     
     try {
-      await axiosInstance.put("/profile", profile);
+      await axiosInstance.put("/api/profile", profile);
       alert("Profile updated successfully!");
       setEditing(false);
     } catch (error) {

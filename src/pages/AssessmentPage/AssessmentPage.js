@@ -22,7 +22,7 @@ const AssessmentPage = () => {
     
     const fetchAssessmentQuestions = async () => {
       try {
-        const response = await axiosInstance.get(`/assessments/questions/${type}`);
+        const response = await axiosInstance.get(`/api/assessments/questions/${type}`);
         setAssessment(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -73,7 +73,7 @@ const AssessmentPage = () => {
         value: answers[q.id]
       }));
 
-      const response = await axiosInstance.post("/assessments/submit", {
+      const response = await axiosInstance.post("/api/assessments/submit", {
         assessmentType: type,
         responses: responses,
       });

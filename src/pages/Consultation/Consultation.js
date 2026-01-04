@@ -20,7 +20,7 @@ const Consultation = () => {
 
   const fetchBookings = React.useCallback(async () => {
     try {
-      const response = await axiosInstance.get("/consultations/my-bookings");
+      const response = await axiosInstance.get("/api/consultations/my-bookings");
       setBookings(response.data.bookings || []);
       setLoading(false);
     } catch (error) {
@@ -53,7 +53,7 @@ const Consultation = () => {
     setSubmitting(true);
 
     try {
-      const response = await axiosInstance.post("/consultations/book", formData);
+      const response = await axiosInstance.post("/api/consultations/book", formData);
       alert("✅ " + response.data.message);
       setShowForm(false);
       setFormData({

@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axiosInstance.get("/results/dashboard");
+        const response = await axiosInstance.get("/api/results/dashboard");
         if (response.data.success) {
           setSummary(response.data.summary);
         }

@@ -19,7 +19,7 @@ const Results = () => {
     
     const fetchResult = async () => {
       try {
-        const response = await axiosInstance.get(`/results/${id}`);
+        const response = await axiosInstance.get(`/api/results/${id}`);
         setResult(response.data.result);
         setLoading(false);
       } catch (error) {
