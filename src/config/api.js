@@ -8,7 +8,7 @@
  * To add a new environment just change PROD_API_URL below.
  */
 
-const PROD_API_URL = "https://psychoish-backend-production-5efd.up.railway.app";
+const PROD_API_URL = "https://psychoish-backend.onrender.com";
 const DEV_API_URL  = "http://localhost:8080";
 
 const isLocalhost =
