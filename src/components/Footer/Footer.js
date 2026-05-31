@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 import "./Footer.css";
 
-const API_URL = 
-  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-    ? "http://localhost:8080"
-    : "https://psychoish-backend-production-5efd.up.railway.app";
+const API_URL = API_BASE_URL;
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./Chatbot.css";
 
 /* ── Tiny unique ID ──────────────────────────────────────────── */
@@ -53,7 +54,7 @@ export default function Chatbot() {
 
   const bottomRef = useRef(null);
   const inputRef  = useRef(null);
-  const API_BASE  = process.env.REACT_APP_API_URL || "http://localhost:8080";
+  const API_BASE  = API_BASE_URL;
 
   /* Auto-scroll to bottom */
   useEffect(() => {

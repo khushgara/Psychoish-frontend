@@ -1,12 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 export const AuthContext = createContext();
 
-const API_URL = 
-  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-    ? "http://localhost:8080"
-    : "https://psychoish-backend-production-5efd.up.railway.app";
+const API_URL = API_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
