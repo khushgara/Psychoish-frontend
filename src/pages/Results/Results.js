@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./Results.css";
@@ -155,7 +155,7 @@ function SeverityBars({ score, maxScore, severity }) {
   const [animated, setAnimated] = useState(false);
   useEffect(() => { const t = setTimeout(() => setAnimated(true), 400); return () => clearTimeout(t); }, []);
 
-  const currentIdx = SEVERITY_ORDER.indexOf(severity);
+
   const ranges = [
     { label: "Low",      key: "low",      pct: 20 },
     { label: "Mild",     key: "mild",     pct: 20 },
