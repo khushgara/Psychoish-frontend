@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: var(--background);
   padding: 2rem;
+  padding-top: 100px;
 }
 
 .consultation-container {

@@ -96,14 +96,22 @@ const Profile = () => {
 
         <div className="profile-stats">
           <div className="stat-card">
-            <div className="stat-icon">📊</div>
+            <div className="stat-icon" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "24px", height: "24px" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
             <div className="stat-info">
               <h3>{stats.totalAssessments}</h3>
               <p>Total Assessments</p>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">📅</div>
+            <div className="stat-icon" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "24px", height: "24px" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
             <div className="stat-info">
               <h3>{stats.lastAssessment ? new Date(stats.lastAssessment).toLocaleDateString() : "N/A"}</h3>
               <p>Last Assessment</p>
@@ -115,8 +123,11 @@ const Profile = () => {
           <div className="section-header">
             <h2>Personal Information</h2>
             {!editing && (
-              <button className="edit-btn" onClick={() => setEditing(true)}>
-                ✏️ Edit Profile
+              <button className="edit-btn" onClick={() => setEditing(true)} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "16px", height: "16px" }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Edit Profile
               </button>
             )}
           </div>

@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
-import { ThemeContext } from "../../context/ThemeContext";
 import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
-  const { themeMode } = useContext(ThemeContext);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -14,100 +12,184 @@ function Login() {
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [focused, setFocused] = useState({ email: false, password: false });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    if (message) {
-      setMessage("");
-      setMessageType("");
-    }
+    if (message) { setMessage(""); setMessageType(""); }
   };
+
+  const handleFocus = (field) => setFocused((f) => ({ ...f, [field]: true }));
+  const handleBlur  = (field) => setFocused((f) => ({ ...f, [field]: false }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-
     const result = await login(form.email.trim(), form.password.trim());
-
     if (result.success) {
-      setMessage("Login successful! Redirecting...");
+      setMessage("Login successful! Redirecting…");
       setMessageType("success");
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
+      setTimeout(() => navigate("/dashboard"), 1000);
     } else {
       setMessage(result.message || "Login failed");
       setMessageType("error");
     }
-
     setLoading(false);
   };
 
   return (
-    <div className={`login-container ${themeMode}`}>
-      <form className="login-box" onSubmit={handleSubmit}>
-        <h2 className="login-title">Welcome Back 👋</h2>
+    <div className="auth-page">
+      {/* Animated background */}
+      <div className="auth-bg">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
+        <div className="grid-overlay" />
+      </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-          disabled={loading}
-          className="login-input"
-        />
+      {/* Centered card */}
+      <div className="auth-card-wrap">
+        <div className="auth-card">
 
-        <div className="password-container">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-            disabled={loading}
-            className="login-input"
-          />
-          <button
-            type="button"
-            className="password-toggle-btn"
-            onClick={() => setShowPassword(!showPassword)}
-            tabIndex="-1"
-          >
-            {showPassword ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                <line x1="1" y1="1" x2="23" y2="23"></line>
+          {/* Header */}
+          <div className="auth-card-header">
+            <div className="auth-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
               </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
+            </div>
+            <div>
+              <h2 className="auth-card-title">Welcome back</h2>
+              <p className="auth-card-sub">Sign in to your account</p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} noValidate>
+
+            {/* Email */}
+            <div className={`field-group ${focused.email || form.email ? "field-active" : ""}`}>
+              <label className="field-label">Email address</label>
+              <div className="field-wrap">
+                <div className="field-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <input
+                  id="login-email"
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus("email")}
+                  onBlur={() => handleBlur("email")}
+                  required
+                  disabled={loading}
+                  className="field-input"
+                  autoComplete="email"
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div className={`field-group ${focused.password || form.password ? "field-active" : ""}`}>
+              <label className="field-label">Password</label>
+              <div className="field-wrap">
+                <div className="field-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                </div>
+                <input
+                  id="login-password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter your password"
+                  value={form.password}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus("password")}
+                  onBlur={() => handleBlur("password")}
+                  required
+                  disabled={loading}
+                  className="field-input"
+                  autoComplete="current-password"
+                />
+                <button type="button" className="eye-btn"
+                  onClick={() => setShowPassword(!showPassword)} tabIndex="-1"
+                  aria-label="Toggle password visibility">
+                  {showPassword ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                      <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                  ) : (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Forgot password */}
+            <div className="form-meta">
+              <span />
+              <Link to="/forgot-password" className="forgot-link">Forgot password?</Link>
+            </div>
+
+            {/* Submit */}
+            <button
+              id="login-submit-btn"
+              type="submit"
+              disabled={!form.email || !form.password || loading}
+              className={`auth-btn ${loading ? "btn-loading" : ""}`}
+            >
+              {loading ? (
+                <span className="btn-spinner-wrap">
+                  <span className="btn-spinner" />
+                  Signing in…
+                </span>
+              ) : (
+                <span className="btn-text-wrap">
+                  Sign in
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </span>
+              )}
+            </button>
+
+            {/* Message */}
+            {message && (
+              <div className={`form-message ${messageType}`}>
+                {messageType === "success" ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                )}
+                {message}
+              </div>
             )}
-          </button>
+
+            {/* Divider + redirect */}
+            <div className="auth-divider"><span>or</span></div>
+            <p className="auth-redirect">
+              New to Psychoish?{" "}
+              <Link to="/signup" className="auth-redirect-link">Create a free account →</Link>
+            </p>
+
+          </form>
         </div>
-
-        <button
-          type="submit"
-          disabled={!form.email || !form.password || loading}
-          className={`login-button ${loading ? "loading" : ""}`}
-        >
-          {loading ? "Signing In..." : "Login"}
-        </button>
-
-        {message && <p className={`login-message ${messageType}`}>{message}</p>}
-
-        <p className="login-redirect">
-          Don't have an account? <Link to="/signup">Sign up here</Link>
-        </p>
-      </form>
+      </div>
     </div>
   );
 }
 
 export default Login;
-

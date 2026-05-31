@@ -1,0 +1,109 @@
+/* ── Container ────────────────────────────────────────────────────────────── */
+.brain-3d-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+
+  /* Dark holographic card – matches reference image dark bg */
+  background: radial-gradient(ellipse at 50% 50%, #0c0820 0%, #060412 60%, #020208 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(120, 80, 255, 0.22);
+  box-shadow:
+    0 0 40px rgba(80, 40, 200, 0.25),
+    inset 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+.brain-3d-container:active {
+  cursor: grabbing;
+}
+
+/* ── Canvas ───────────────────────────────────────────────────────────────── */
+.brain-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Pulsing Aura Glow ────────────────────────────────────────────────────── */
+.brain-glow-overlay {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(
+    circle,
+    rgba(100, 60, 220, 0.18) 0%,
+    rgba(60,  30, 160, 0.06) 50%,
+    rgba(0,    0,   0, 0.00) 70%
+  );
+  border-radius: 50%;
+  z-index: 1;
+  filter: blur(18px);
+  pointer-events: none;
+  animation: pulseGlow 7s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%   { transform: scale(0.90); opacity: 0.85; }
+  50%  { transform: scale(1.18); opacity: 1.00; }
+  100% { transform: scale(0.90); opacity: 0.85; }
+}
+
+/* ── HUD Corner Brackets ─────────────────────────────────────────────────── */
+.brain-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.brain-corner--tl {
+  top: 12px; left: 12px;
+  border-top:  2px solid rgba(100, 220, 255, 0.75);
+  border-left: 2px solid rgba(100, 220, 255, 0.75);
+  border-radius: 3px 0 0 0;
+}
+.brain-corner--tr {
+  top: 12px; right: 12px;
+  border-top:   2px solid rgba(100, 220, 255, 0.75);
+  border-right: 2px solid rgba(100, 220, 255, 0.75);
+  border-radius: 0 3px 0 0;
+}
+.brain-corner--bl {
+  bottom: 12px; left: 12px;
+  border-bottom: 2px solid rgba(100, 220, 255, 0.75);
+  border-left:   2px solid rgba(100, 220, 255, 0.75);
+  border-radius: 0 0 0 3px;
+}
+.brain-corner--br {
+  bottom: 12px; right: 12px;
+  border-bottom: 2px solid rgba(100, 220, 255, 0.75);
+  border-right:  2px solid rgba(100, 220, 255, 0.75);
+  border-radius: 0 0 3px 0;
+}
+
+/* ── Lobe Legend (optional future addition placeholder) ──────────────────── */
+/* .brain-legend { ... } */
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .brain-3d-container {
+    height: 380px;
+    border-radius: 14px;
+  }
+  .brain-glow-overlay {
+    width: 260px;
+    height: 260px;
+  }
+}

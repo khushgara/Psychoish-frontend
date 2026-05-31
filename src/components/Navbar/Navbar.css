@@ -102,7 +102,7 @@
 
 .navbar-login-btn {
   padding: 0.6rem 1.5rem;
-  background: var(--primary);
+  background: var(--primary-gradient);
   color: white;
   text-decoration: none;
   border-radius: 25px;
@@ -114,9 +114,9 @@
 }
 
 .navbar-login-btn:hover {
-  background: var(--primary-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  filter: brightness(1.1);
 }
 
 /* User Menu Styles */
@@ -135,7 +135,7 @@
 
 .navbar-logout-btn {
   padding: 0.6rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
   border: none;
   border-radius: 25px;
@@ -149,7 +149,7 @@
 .navbar-logout-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  filter: brightness(1.1);
 }
 
 .navbar-toggle {
@@ -202,18 +202,18 @@
 }
 
 .mobile-navbar-link:hover {
-  background: var(--primary);
+  background: var(--primary-gradient);
   color: white;
 }
 
 .mobile-login-btn {
-  background: var(--primary);
+  background: var(--primary-gradient);
   color: white !important;
   text-align: center;
 }
 
 .mobile-logout-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white !important;
   text-align: center;
   border: none;
@@ -226,8 +226,8 @@
 }
 
 .mobile-logout-btn:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
 @media (max-width: 768px) {

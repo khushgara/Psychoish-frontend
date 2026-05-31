@@ -16,10 +16,15 @@ import Therapies from "./pages/Therapies/Therapies";
 import Blog from "./pages/Blog/Blog";
 import Contact from "./pages/Contact/Contact";
 import FAQ from "./pages/FAQ/FAQ";
+import PrivacyPolicy from "./pages/Legal/PrivacyPolicy";
+import TermsOfUse from "./pages/Legal/TermsOfUse";
+import CrisisResources from "./pages/Legal/CrisisResources";
+import SuccessStories from "./pages/Stories/Stories";
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 function AppContent() {
   const { theme } = useContext(ThemeContext);
@@ -52,6 +57,10 @@ function AppContent() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfUse />} />
+            <Route path="/crisis" element={<CrisisResources />} />
+            <Route path="/stories" element={<SuccessStories />} />
             
             {/* Protected Routes */}
             <Route
@@ -106,6 +115,7 @@ function AppContent() {
         </main>
         <Footer />
       </Router>
+      <Chatbot />
     </div>
   );
 }

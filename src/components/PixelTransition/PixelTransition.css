@@ -1,0 +1,56 @@
+.pixel-transition-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 24px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.pixel-transition-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px var(--shadow);
+  border-color: var(--primary);
+}
+
+.pixel-transition-content-default {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-transition-content-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.pixel-transition-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pixelated-image-card__pixel {
+  position: absolute;
+  display: none;
+}

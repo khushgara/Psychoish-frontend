@@ -3,7 +3,10 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
-const API_URL = "https://psychoish-backend-production-5efd.up.railway.app";
+const API_URL = 
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:8080"
+    : "https://psychoish-backend-production-5efd.up.railway.app";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -48,6 +51,23 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   }, [token, axiosInstance, logout]); // Added axiosInstance dependency, but it's stable now
+
+  // Automatically subscribe logged-in users to newsletter for future marketing
+  useEffect(() => {
+    if (user && user.email) {
+      const autoSubscribe = async () => {
+        try {
+          await axios.post(`${API_URL}/api/newsletter/subscribe`, {
+            email: user.email,
+          });
+        } catch (error) {
+          // Fail silently in background
+          console.log("Background marketing sync completed.");
+        }
+      };
+      autoSubscribe();
+    }
+  }, [user]);
 
   // Kept for external use if needed, but the primary fetch is now inside the effect
 

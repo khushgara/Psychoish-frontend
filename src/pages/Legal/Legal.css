@@ -1,0 +1,632 @@
+/* ═══════════════════════════════════════════════════════════════
+   Legal Pages — Privacy Policy, Terms of Use, Crisis Resources
+   Theme-aware: uses CSS variables for light/dark mode support
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ────────────────────────────────────────────── */
+.legal-page {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* ── Hero ────────────────────────────────────────────────────── */
+.legal-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.legal-hero--terms {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.legal-hero--crisis {
+  background: linear-gradient(135deg, #ef4444 0%, #7c3aed 100%);
+}
+
+.legal-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.legal-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.legal-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.legal-meta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* ── Two-column layout (TOC + content) ───────────────────────── */
+.legal-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* ── Sidebar TOC ─────────────────────────────────────────────── */
+.legal-toc {
+  position: sticky;
+  top: 100px;
+}
+
+.toc-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+.toc-card h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.toc-card nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+
+.toc-link:hover {
+  background: var(--hover-bg);
+  color: var(--primary);
+  border-left-color: var(--primary);
+}
+
+.toc-contact {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.toc-contact p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.toc-email-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.toc-email-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Main content ────────────────────────────────────────────── */
+.legal-content {
+  min-width: 0;
+}
+
+.legal-intro {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.legal-intro p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.legal-intro strong {
+  color: var(--text);
+}
+
+/* ── Sections ────────────────────────────────────────────────── */
+.legal-section {
+  margin-bottom: 2.5rem;
+  scroll-margin-top: 100px;
+}
+
+.legal-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.legal-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--hover-bg);
+  color: var(--primary);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.legal-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.legal-subsection {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s;
+}
+
+.legal-subsection:hover {
+  border-color: var(--primary);
+}
+
+.legal-subsection h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.legal-subsection p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── Warning banner (Terms page) ─────────────────────────────── */
+.legal-warning-banner {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  color: #ef4444;
+}
+
+.legal-warning-banner svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.legal-warning-banner strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.legal-warning-banner p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ── CTA block ───────────────────────────────────────────────── */
+.legal-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+  margin-top: 3rem;
+}
+
+.legal-cta h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.legal-cta p {
+  opacity: 0.9;
+  font-size: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.legal-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.legal-btn-primary {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: white;
+  color: #667eea;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.legal-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.legal-btn-secondary {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.legal-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Crisis Resources specific styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Emergency banner */
+.crisis-emergency-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #ef4444;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.crisis-emergency-banner svg {
+  flex-shrink: 0;
+}
+
+.crisis-page-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.crisis-section {
+  margin-bottom: 4rem;
+}
+
+.crisis-section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.crisis-section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Steps */
+.crisis-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.crisis-step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px var(--shadow);
+  position: relative;
+}
+
+.crisis-step-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.crisis-step-number {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crisis-step-icon {
+  color: var(--primary);
+  margin: 0.75rem auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crisis-step-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.crisis-step-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Hotlines */
+.crisis-hotlines-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.crisis-hotline-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--card-bg);
+  border: 1.5px solid;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.crisis-hotline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.crisis-hotline-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.crisis-hotline-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.crisis-hotline-number {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.crisis-hotline-info p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.crisis-hotline-badge {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Online resources */
+.crisis-resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.crisis-resource-card {
+  display: block;
+  background: var(--card-bg);
+  border: 1.5px solid;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.25s;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.crisis-resource-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px var(--shadow);
+}
+
+.crisis-resource-category {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.crisis-resource-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.crisis-resource-card p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.crisis-resource-arrow {
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+
+.crisis-resource-card:hover .crisis-resource-arrow {
+  transform: translateX(4px);
+}
+
+/* Disclaimer */
+.crisis-disclaimer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--warning, #f59e0b);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.crisis-disclaimer svg {
+  flex-shrink: 0;
+  color: var(--warning, #f59e0b);
+  margin-top: 2px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .legal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-toc {
+    position: static;
+  }
+
+  .crisis-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crisis-hotlines-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crisis-resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .legal-hero h1 {
+    font-size: 2rem;
+  }
+
+  .crisis-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crisis-resources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-cta h2 {
+    font-size: 1.4rem;
+  }
+
+  .legal-page-content,
+  .crisis-page-content {
+    padding: 1.5rem 1rem;
+  }
+}

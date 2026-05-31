@@ -54,7 +54,7 @@ const Consultation = () => {
 
     try {
       const response = await axiosInstance.post("/api/consultations/book", formData);
-      alert("✅ " + response.data.message);
+      alert(response.data.message);
       setShowForm(false);
       setFormData({
         name: user?.name || "",
@@ -89,8 +89,11 @@ const Consultation = () => {
           <h1>Professional Consultations</h1>
           <p>Book a session with licensed mental health professionals</p>
           {!showForm && (
-            <button className="book-btn" onClick={() => setShowForm(true)}>
-              📅 Book New Consultation
+            <button className="book-btn" onClick={() => setShowForm(true)} style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "18px", height: "18px" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Book New Consultation
             </button>
           )}
         </div>
@@ -197,7 +200,11 @@ const Consultation = () => {
             </div>
           ) : bookings.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">📅</div>
+              <div className="empty-icon" style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "48px", height: "48px", color: "var(--text-secondary)" }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
               <h3>No consultations yet</h3>
               <p>Book your first consultation to get started</p>
             </div>
@@ -216,19 +223,35 @@ const Consultation = () => {
                   </div>
                   <div className="booking-details">
                     <div className="detail-item">
-                      <span className="detail-icon">👤</span>
+                      <span className="detail-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "16px", height: "16px" }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </span>
                       <span>{booking.name}</span>
                     </div>
                     <div className="detail-item">
-                      <span className="detail-icon">📧</span>
+                      <span className="detail-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "16px", height: "16px" }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </span>
                       <span>{booking.email}</span>
                     </div>
                     <div className="detail-item">
-                      <span className="detail-icon">📞</span>
+                      <span className="detail-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "16px", height: "16px" }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </span>
                       <span>{booking.phone}</span>
                     </div>
                     <div className="detail-item">
-                      <span className="detail-icon">📅</span>
+                      <span className="detail-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "16px", height: "16px" }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </span>
                       <span>{new Date(booking.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>

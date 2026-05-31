@@ -1,32 +1,33 @@
 export const themes = {
   light: {
     colors: {
-      background: "#FFFFFF",
-      text: "#111827",
-      primary: "#3B82F6",
-      secondary: "#8B5CF6",
-      lightBg: "#F9FAFB",
-      darkText: "#111827",
-      lightText: "#FFFFFF",
-      darkBg: "#1F2937",
+      background: "#ffffff",
+      text: "#1a1a1a",
+      primary: "#667eea",
+      secondary: "#764ba2",
+      lightBg: "#f8f9fa",
+      darkText: "#1a1a1a",
+      lightText: "#ffffff",
+      darkBg: "#1e293b",
     },
     gradients: {
-      main: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)",
+      main: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     },
   },
   dark: {
     colors: {
-      background: "#1F2937",
-      text: "#F9FAFB",
-      primary: "#3B82F6",
-      secondary: "#8B5CF6",
-      lightBg: "#F9FAFB",
-      darkText: "#F9FAFB",
-      lightText: "#111827",
-      darkBg: "#111827",
+      background: "#0f172a",
+      text: "#f1f5f9",
+      primary: "#a78bfa",
+      secondary: "#818cf8",
+      lightBg: "#1e293b",
+      darkText: "#f1f5f9",
+      lightText: "#1e293b",
+      darkBg: "#0f172a",
     },
     gradients: {
-      main: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)",
+      main: "linear-gradient(135deg, #818cf8 0%, #c084fc 100%)",
     },
   },
 };
+
