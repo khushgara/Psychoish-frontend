@@ -5,11 +5,11 @@
  *  - If the app is running on localhost or 127.0.0.1  →  uses local dev server
  *  - Anywhere else (Railway, Vercel, custom domain…)  →  uses the production backend
  *
- * To add a new environment just change PROD_API_URL below.
+ environment just change PROD_API_URL below.
  */
 
-const PROD_API_URL = "https://psychoish-backend.onrender.com";
-const DEV_API_URL  = "http://localhost:8080";
+const PROD_API_URL = "https://peachpuff-trout-823444.hostingersite.com";
+const DEV_API_URL = "http://localhost:8080";
 
 const isLocalhost =
   window.location.hostname === "localhost" ||
