@@ -80,7 +80,7 @@ function PixelTransition({
 
     delayedCallRef.current = gsap.delayedCall(animationStepDuration, () => {
       activeEl.style.display = activate ? 'block' : 'none';
-      activeEl.style.pointerEvents = activate ? 'none' : '';
+      // Do NOT set pointerEvents:none on activeEl — that blocks button clicks inside it
     });
 
     gsap.to(pixels, {
@@ -100,9 +100,17 @@ function PixelTransition({
   const handleLeave = () => {
     if (isActive && !once) animatePixels(false);
   };
-  const handleClick = () => {
-    if (!isActive) animatePixels(true);
-    else if (isActive && !once) animatePixels(false);
+  const handleClick = (e) => {
+    // If the card is already active and the click is on an interactive element
+    // (link, button), let it navigate — don't toggle the animation
+    if (isActive) {
+      const tag = e.target.tagName.toLowerCase();
+      const closestLink = e.target.closest('a, button');
+      if (closestLink) return; // let the link/button handle the click
+      if (!once) animatePixels(false);
+      return;
+    }
+    animatePixels(true);
   };
 
   return (
