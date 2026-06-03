@@ -104,7 +104,6 @@ function PixelTransition({
     // If the card is already active and the click is on an interactive element
     // (link, button), let it navigate — don't toggle the animation
     if (isActive) {
-      const tag = e.target.tagName.toLowerCase();
       const closestLink = e.target.closest('a, button');
       if (closestLink) return; // let the link/button handle the click
       if (!once) animatePixels(false);
