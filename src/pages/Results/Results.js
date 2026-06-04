@@ -90,15 +90,15 @@ function RadialGauge({ score, maxScore, severity }) {
         })()}
         {/* Score text */}
         <text x={cx} y={cy - 10} textAnchor="middle"
-          fontSize="38" fontWeight="800" fill="white">
+          fontSize="38" fontWeight="800" fill="var(--text)">
           {score}
         </text>
         <text x={cx} y={cy + 18} textAnchor="middle"
-          fontSize="13" fill="rgba(255,255,255,0.5)" letterSpacing="2">
+          fontSize="13" fill="var(--text-secondary)" letterSpacing="2">
           / {maxScore}
         </text>
         <text x={cx} y={cy + 44} textAnchor="middle"
-          fontSize="11" fill="rgba(255,255,255,0.35)" letterSpacing="3">
+          fontSize="11" fill="var(--text-secondary)" opacity="0.7" letterSpacing="3">
           SCORE
         </text>
       </svg>
@@ -229,7 +229,7 @@ function ScoreDonut({ score, maxScore, severity }) {
         strokeDasharray={`${dash} ${circ}`} strokeLinecap="round"
         transform={`rotate(-90 ${C} ${C})`}
         style={{ filter: `drop-shadow(0 0 6px ${color})` }} />
-      <text x={C} y={C + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill="white">
+      <text x={C} y={C + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill="var(--text)">
         {Math.round(animPct * 100)}%
       </text>
     </svg>
@@ -288,6 +288,85 @@ function WellnessMeter({ severity }) {
         <span style={{ color: "#dc2626" }}>Critical</span>
         <span style={{ color: "#10b981" }}>Healthy</span>
       </div>
+    </div>
+  );
+}
+
+/* ─── AI Assessment Brief Component ─────────────────────────────────────── */
+function AiAssessmentBrief({ assessmentType, score, severity, interpretation, axiosInstance }) {
+  const [aiAnalysis, setAiAnalysis] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+
+  const generateAnalysis = async () => {
+    if (aiAnalysis) { setExpanded((e) => !e); return; }
+    setAiLoading(true);
+    setAiError(null);
+    setExpanded(true);
+    try {
+      const prompt = `I just completed a ${assessmentType?.toUpperCase()} mental health assessment and scored ${score}. My result was "${interpretation?.label || severity}" severity. In 3-4 sentences, provide a brief, compassionate, and practical analysis of what this means for my mental wellbeing and what first steps I can take. Keep it supportive and non-clinical.`;
+      const res = await axiosInstance.post("/api/chat/message", {
+        message: prompt,
+        sessionId: `ai-brief-${Date.now()}`,
+      });
+      if (res.data.success) {
+        setAiAnalysis(res.data.reply);
+      } else {
+        setAiError("Unable to generate AI analysis right now. Please try again.");
+      }
+    } catch {
+      setAiError("Unable to reach the AI service. Please try again later.");
+    }
+    setAiLoading(false);
+  };
+
+  return (
+    <div className="ai-assessment-section">
+      <div className="ai-assessment-header" onClick={generateAnalysis}>
+        <div className="ai-assessment-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "18px", height: "18px" }}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.813 15.904 9 21l-.813-5.096L3.096 15.09 8.192 14.28 9 9.187l.813 5.093 5.096.813-5.096.811ZM19.5 6.077l-1.62.272-.27 1.62-.272-1.62L15.72 6.08l1.62-.27.27-1.62.272 1.62 1.62.27ZM14.25 21.077l-1.08.18-.18 1.08-.182-1.08-1.08-.18 1.08-.18.18-1.08.182 1.08 1.08.18Z" />
+          </svg>
+          AI Assessment Brief
+          <span className="ai-badge-tag">Powered by Gemini</span>
+        </div>
+        <button className="ai-toggle-btn" aria-label={expanded ? "Collapse" : "Expand"}>
+          {aiLoading ? (
+            <span className="ai-spinner" />
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "18px", height: "18px", transition: "transform 0.3s", transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {expanded && (
+        <div className="ai-assessment-body">
+          {aiLoading && (
+            <div className="ai-loading">
+              <span className="ai-dot" /><span className="ai-dot" /><span className="ai-dot" />
+              <span style={{ marginLeft: "8px", fontSize: "0.85rem", color: "var(--text-secondary)" }}>Generating your personalized analysis…</span>
+            </div>
+          )}
+          {aiError && <p className="ai-error">{aiError}</p>}
+          {aiAnalysis && (
+            <div className="ai-analysis-text">
+              <div className="ai-analysis-avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+              </div>
+              <p>{aiAnalysis}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {!expanded && !aiLoading && (
+        <p className="ai-cta">Click to get a personalized AI analysis of your results</p>
+      )}
     </div>
   );
 }
@@ -393,10 +472,10 @@ const Results = () => {
                   style={{ borderColor: isActive ? SEVERITY_COLORS[s] : "transparent",
                            boxShadow: isActive ? `0 0 20px ${SEVERITY_COLORS[s]}55` : "none" }}>
                   <div className="ref-dot" style={{ background: SEVERITY_COLORS[s] }} />
-                  <div className="ref-name" style={{ color: isActive ? SEVERITY_COLORS[s] : "rgba(255,255,255,0.45)" }}>
+                  <div className="ref-name" style={{ color: isActive ? SEVERITY_COLORS[s] : "var(--text-secondary)" }}>
                     {s.charAt(0).toUpperCase() + s.slice(1)}
                   </div>
-                  <div className="ref-range" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <div className="ref-range" style={{ color: "var(--text-secondary)", opacity: 0.6 }}>
                     {["0–20%", "21–40%", "41–60%", "61–80%", "81–100%"][i]}
                   </div>
                 </div>
@@ -425,6 +504,15 @@ const Results = () => {
           </div>
         </div>
 
+        {/* ── AI Assessment Brief ────────────────────────────────────── */}
+        <AiAssessmentBrief
+          assessmentType={result.assessmentType}
+          score={result.score}
+          severity={severity}
+          interpretation={result.interpretation}
+          axiosInstance={axiosInstance}
+        />
+
         {/* ── Crisis resources ───────────────────────────────────────────── */}
         {(severity === "high" || severity === "critical") && (
           <div className="crisis-resources">
@@ -439,7 +527,8 @@ const Results = () => {
             <div className="resource-links">
               <div className="resource-item"><strong>National Suicide Prevention Lifeline:</strong><a href="tel:988">988</a></div>
               <div className="resource-item"><strong>Crisis Text Line:</strong><a href="sms:741741">Text HELLO to 741741</a></div>
-              <div className="resource-item"><strong>SAMHSA National Helpline:</strong><a href="tel:1-800-662-4357">1-800-662-4357</a></div>
+              <div className="resource-item"><strong>Psychoish Support:</strong><a href="tel:+918824801907">+91 88248 01907</a></div>
+              <div className="resource-item"><strong>Email Support:</strong><a href="mailto:help.psychoish@khushagra.in">help.psychoish@khushagra.in</a></div>
             </div>
           </div>
         )}

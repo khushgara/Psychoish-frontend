@@ -27,6 +27,7 @@ const Signup = () => {
 
   const [formData, setFormData] = useState({
     name: "", email: "", password: "", confirmPassword: "",
+    phone: "", dateOfBirth: "", gender: "",
   });
   const [message,     setMessage]     = useState("");
   const [messageType, setMessageType] = useState("");
@@ -35,6 +36,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [focused, setFocused] = useState({
     name: false, email: false, password: false, confirmPassword: false,
+    phone: false, dateOfBirth: false,
   });
 
   const handleChange = (e) => {
@@ -59,7 +61,8 @@ const Signup = () => {
 
     const result = await signup(
       formData.name, formData.email,
-      formData.password, formData.confirmPassword
+      formData.password, formData.confirmPassword,
+      { phone: formData.phone, dateOfBirth: formData.dateOfBirth, gender: formData.gender }
     );
 
     if (result.success) {
@@ -107,7 +110,11 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} noValidate>
 
-            {/* ── 2×2 field grid ── */}
+            {/* ── Section 1: Account Info ── */}
+            <div className="form-section-label">
+              <span className="form-section-badge">1</span>
+              Account Information
+            </div>
             <div className="form-grid">
 
             {/* Full Name */}
@@ -269,6 +276,95 @@ const Signup = () => {
             </div>
 
             </div> {/* /form-grid */}
+
+            {/* ── Section 2: Profile Info ── */}
+            <div className="form-section-label">
+              <span className="form-section-badge">2</span>
+              Profile Details <span className="optional-tag">Optional</span>
+            </div>
+            <div className="form-grid">
+
+            {/* Phone */}
+            <div className={`field-group ${focused.phone || formData.phone ? "field-active" : ""}`}>
+              <label className="field-label">Phone number</label>
+              <div className="field-wrap">
+                <div className="field-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <input
+                  id="signup-phone"
+                  type="tel"
+                  name="phone"
+                  placeholder="+91 XXXXX XXXXX"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus("phone")}
+                  onBlur={() => handleBlur("phone")}
+                  disabled={loading}
+                  className="field-input"
+                  autoComplete="tel"
+                />
+              </div>
+            </div>
+
+            {/* Date of Birth */}
+            <div className={`field-group ${focused.dateOfBirth || formData.dateOfBirth ? "field-active" : ""}`}>
+              <label className="field-label">Date of birth</label>
+              <div className="field-wrap">
+                <div className="field-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                </div>
+                <input
+                  id="signup-dob"
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus("dateOfBirth")}
+                  onBlur={() => handleBlur("dateOfBirth")}
+                  disabled={loading}
+                  className="field-input field-input-date"
+                  max={new Date().toISOString().split("T")[0]}
+                />
+              </div>
+            </div>
+
+            {/* Gender */}
+            <div className="field-group field-group-full">
+              <label className="field-label">Gender</label>
+              <div className="gender-options">
+                {[
+                  { value: "male",              label: "Male" },
+                  { value: "female",            label: "Female" },
+                  { value: "other",             label: "Other" },
+                  { value: "prefer_not_to_say", label: "Prefer not to say" },
+                ].map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`gender-option ${formData.gender === opt.value ? "gender-option-active" : ""}`}
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      value={opt.value}
+                      checked={formData.gender === opt.value}
+                      onChange={handleChange}
+                      disabled={loading}
+                    />
+                    {opt.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            </div> {/* /form-grid profile */}
 
             {/* Submit */}
             <button

@@ -94,13 +94,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (name, email, password, confirmPassword) => {
+  const signup = async (name, email, password, confirmPassword, profileData = {}) => {
     try {
       const response = await axios.post(`${API_URL}/api/auth/signup`, {
         name,
         email,
         password,
         confirmPassword,
+        phone: profileData.phone || null,
+        date_of_birth: profileData.dateOfBirth || null,
+        gender: profileData.gender || null,
       });
 
       if (response.data.success) {

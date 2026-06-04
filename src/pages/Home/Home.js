@@ -240,37 +240,6 @@ function Home() {
                 <div className="resource-icon-container" style={{ width: '60px', height: '60px', background: 'var(--hover-bg)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', color: 'var(--primary)' }}>
                   <span className="resource-icon" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width: '28px', height: '28px'}}>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
-                    </svg>
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--text)', margin: '0 0 0.5rem 0' }}>Blog & Articles</h3>
-                <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '0.5rem' }}>Hover to Read &rarr;</span>
-              </div>
-            }
-            secondContent={
-              <Link to="/blog" style={{ padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', background: 'var(--card-bg)', textAlign: 'center', textDecoration: 'none', border: '2px solid var(--primary)', borderRadius: '24px' }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '1.25rem', flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Expert-written articles on managing stress, anxiety, and improving daily life.</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontWeight: '600' }}>
-                  <span>Read Articles</span>
-                  <div className="card-arrow" style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary-gradient)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff' }}>&rarr;</div>
-                </div>
-              </Link>
-            }
-          />
-
-          <PixelTransition
-            gridSize={8}
-            pixelColor="var(--primary)"
-            once={false}
-            animationStepDuration={0.4}
-            aspectRatio="100%"
-            className="resource-transition-card"
-            firstContent={
-              <div style={{ padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', background: 'var(--card-bg)', textAlign: 'center' }}>
-                <div className="resource-icon-container" style={{ width: '60px', height: '60px', background: 'var(--hover-bg)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', color: 'var(--primary)' }}>
-                  <span className="resource-icon" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width: '28px', height: '28px'}}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
                     </svg>
                   </span>
@@ -289,6 +258,7 @@ function Home() {
               </Link>
             }
           />
+
         </div>
       </section>
 

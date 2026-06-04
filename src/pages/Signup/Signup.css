@@ -12,8 +12,7 @@
 
 /* ── Wider card to fit the 2-col layout ───────────────────────── */
 .auth-card-wrap {
-  max-width: 600px;
-  /* Center it manually since parent is flex-start */
+  max-width: 640px;
   margin: 0 auto;
 }
 
@@ -25,6 +24,42 @@
 /* ── Compress header margin ───────────────────────────────────── */
 .auth-card-header {
   margin-bottom: 1.4rem;
+}
+
+/* ── Section label ────────────────────────────────────────────── */
+.form-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 1.2rem 0 0.75rem;
+}
+
+.form-section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.optional-tag {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.28);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 4px;
 }
 
 /* ── 2×2 field grid ───────────────────────────────────────────── */
@@ -39,6 +74,11 @@
   margin-bottom: 0.85rem;
 }
 
+/* Full-width field inside grid */
+.field-group-full {
+  grid-column: 1 / -1;
+}
+
 /* Password strength bar stays in its grid cell */
 .strength-bar-wrap {
   grid-column: span 1;
@@ -50,10 +90,53 @@
   height: 3px;
 }
 
+/* ── Date input styling ─────────────────────────────────────────── */
+.field-input-date {
+  color-scheme: dark;
+}
+
+/* ── Gender radio options ──────────────────────────────────────── */
+.gender-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.04);
+  user-select: none;
+}
+
+.gender-option input[type="radio"] {
+  display: none;
+}
+
+.gender-option:hover {
+  border-color: rgba(167,139,250,0.4);
+  color: rgba(255,255,255,0.75);
+}
+
+.gender-option-active {
+  border-color: #a78bfa;
+  background: rgba(167,139,250,0.15);
+  color: #a78bfa;
+  font-weight: 600;
+}
+
 /* ── Submit button — less padding ─────────────────────────────── */
 .auth-btn {
   padding: 0.85rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 /* ── Divider — tighter margins ────────────────────────────────── */
@@ -77,7 +160,7 @@
 }
 
 /* ── Collapse to single column on small screens ───────────────── */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .form-grid {
     grid-template-columns: 1fr;
     gap: 0;

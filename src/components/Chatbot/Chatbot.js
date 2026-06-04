@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { API_BASE_URL } from "../../config/api";
+import { AuthContext } from "../../context/AuthContext";
 import "./Chatbot.css";
 
 /* ── Tiny unique ID ──────────────────────────────────────────── */
@@ -36,6 +37,7 @@ function RenderMessage({ text }) {
 }
 
 export default function Chatbot() {
+  const { isAuthenticated, user, axiosInstance } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -51,6 +53,9 @@ export default function Chatbot() {
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [unread, setUnread] = useState(0);
   const [typing, setTyping] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
 
   const bottomRef = useRef(null);
   const inputRef  = useRef(null);
@@ -69,6 +74,22 @@ export default function Chatbot() {
     }
   }, [open]);
 
+  /* Load chat history for authenticated users */
+  const loadHistory = useCallback(async () => {
+    if (!isAuthenticated) return;
+    setHistoryLoading(true);
+    try {
+      const res = await axiosInstance.get("/api/chat/history");
+      if (res.data.success) {
+        setHistory(res.data.sessions || []);
+      }
+    } catch {
+      // silently fail – history is a nice-to-have
+    } finally {
+      setHistoryLoading(false);
+    }
+  }, [isAuthenticated, axiosInstance]);
+
   const sendMessage = useCallback(
     async (text) => {
       const userText = (text || input).trim();
@@ -84,12 +105,21 @@ export default function Chatbot() {
       setMessages((prev) => [...prev, userMsg]);
 
       try {
-        const res = await fetch(`${API_BASE}/api/chat/message`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userText, sessionId }),
-        });
-        const data = await res.json();
+        const body = { message: userText, sessionId };
+        let data;
+
+        if (isAuthenticated) {
+          const resp = await axiosInstance.post("/api/chat/message", body);
+          data = resp.data;
+        } else {
+          const res = await fetch(`${API_BASE}/api/chat/message`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          data = await res.json();
+        }
+
         setTyping(false);
 
         const botMsg = {
@@ -118,7 +148,7 @@ export default function Chatbot() {
       }
       setLoading(false);
     },
-    [input, loading, sessionId, API_BASE, open]
+    [input, loading, sessionId, API_BASE, open, isAuthenticated, axiosInstance]
   );
 
   const handleKey = (e) => {
@@ -147,6 +177,29 @@ export default function Chatbot() {
 
   const fmt = (d) =>
     d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  const fmtDate = (d) =>
+    new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+
+  const handleHistoryClick = async () => {
+    if (!showHistory) await loadHistory();
+    setShowHistory((s) => !s);
+  };
+
+  const loadSession = (session) => {
+    // Load saved messages from this history session
+    const msgs = (session.messages || []).map((m) => ({
+      id: genId(),
+      role: m.role === "assistant" ? "bot" : "user",
+      text: m.content,
+      ts: new Date(m.timestamp || session.createdAt),
+    }));
+    if (msgs.length > 0) {
+      setMessages(msgs);
+      setShowSuggestions(false);
+    }
+    setShowHistory(false);
+  };
 
   return (
     <>
@@ -188,6 +241,19 @@ export default function Chatbot() {
             </div>
           </div>
           <div className="chatbot-header-actions">
+            {/* History button — only for logged-in users */}
+            {isAuthenticated && (
+              <button
+                className={`chatbot-icon-btn ${showHistory ? "chatbot-icon-btn--active" : ""}`}
+                onClick={handleHistoryClick}
+                title="Chat history"
+                aria-label="Chat history"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+              </button>
+            )}
             <button className="chatbot-icon-btn" onClick={clearChat} title="Clear chat" aria-label="Clear chat">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -208,6 +274,36 @@ export default function Chatbot() {
           </svg>
           Not a substitute for professional care. In crisis? Call or text <strong>988</strong>.
         </div>
+
+        {/* History Panel */}
+        {showHistory && (
+          <div className="chatbot-history-panel">
+            <div className="chatbot-history-header">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              Recent Chat Sessions
+            </div>
+            {historyLoading ? (
+              <div className="chatbot-history-loading">Loading sessions…</div>
+            ) : history.length === 0 ? (
+              <div className="chatbot-history-empty">No saved chat sessions yet.</div>
+            ) : (
+              history.slice(0, 8).map((session, i) => (
+                <button
+                  key={session._id || i}
+                  className="chatbot-history-item"
+                  onClick={() => loadSession(session)}
+                >
+                  <div className="chatbot-history-preview">
+                    {session.messages?.[0]?.content?.slice(0, 50) || "Chat session"}…
+                  </div>
+                  <div className="chatbot-history-date">{fmtDate(session.createdAt || session.updatedAt)}</div>
+                </button>
+              ))
+            )}
+          </div>
+        )}
 
         {/* Messages */}
         <div className="chatbot-messages">
@@ -287,7 +383,9 @@ export default function Chatbot() {
               )}
             </button>
           </div>
-          <p className="chatbot-footer-note">Powered by Google Gemini · Psychoish Psy</p>
+          <p className="chatbot-footer-note">
+            {isAuthenticated ? `Chatting as ${user?.name?.split(" ")[0]} · ` : ""}Powered by Google Gemini · Psychoish Psy
+          </p>
         </div>
       </div>
     </>

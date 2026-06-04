@@ -49,7 +49,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3>Email</h3>
-                <p>support@psychoish.com</p>
+                <p>help.psychoish@khushagra.in</p>
               </div>
             </div>
 
@@ -61,7 +61,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3>Phone</h3>
-                <p>+1 (555) 123-4567</p>
+                <p>+91 88248 01907</p>
               </div>
             </div>
 
@@ -88,8 +88,8 @@ const Contact = () => {
               </div>
               <div>
                 <h3>Address</h3>
-                <p>123 Mental Health Street</p>
-                <p>Wellness City, WC 12345</p>
+                <p>Jaipur, Rajasthan</p>
+                <p>India</p>
               </div>
             </div>
 

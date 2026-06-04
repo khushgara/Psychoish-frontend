@@ -17,6 +17,144 @@
   padding: 2rem 1rem;
 }
 
+/* Light mode overrides */
+[data-theme="light"] .auth-page,
+body.light-mode .auth-page {
+  background: #f0f2ff;
+}
+
+[data-theme="light"] .auth-card,
+body.light-mode .auth-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  box-shadow: 0 8px 40px rgba(102, 126, 234, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+[data-theme="light"] .auth-card-title,
+body.light-mode .auth-card-title {
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .auth-card-sub,
+body.light-mode .auth-card-sub {
+  color: #6b7280;
+}
+
+[data-theme="light"] .field-label,
+body.light-mode .field-label {
+  color: #6b7280;
+}
+
+[data-theme="light"] .field-group.field-active .field-label,
+body.light-mode .field-group.field-active .field-label {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .field-input,
+body.light-mode .field-input {
+  background: rgba(139, 92, 246, 0.04);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .field-input::placeholder,
+body.light-mode .field-input::placeholder {
+  color: #9ca3af;
+}
+
+[data-theme="light"] .field-input:focus,
+body.light-mode .field-input:focus {
+  border-color: #7c3aed;
+  background: rgba(139, 92, 246, 0.06);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+[data-theme="light"] .field-icon,
+body.light-mode .field-icon {
+  color: #9ca3af;
+}
+
+[data-theme="light"] .field-group.field-active .field-icon,
+body.light-mode .field-group.field-active .field-icon {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .eye-btn,
+body.light-mode .eye-btn {
+  color: #9ca3af;
+}
+
+[data-theme="light"] .eye-btn:hover,
+body.light-mode .eye-btn:hover {
+  color: #4b5563;
+}
+
+[data-theme="light"] .form-meta .forgot-link,
+body.light-mode .form-meta .forgot-link {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .auth-divider::before,
+[data-theme="light"] .auth-divider::after,
+body.light-mode .auth-divider::before,
+body.light-mode .auth-divider::after {
+  background: rgba(0,0,0,0.1);
+}
+
+[data-theme="light"] .auth-divider span,
+body.light-mode .auth-divider span {
+  color: #9ca3af;
+}
+
+[data-theme="light"] .auth-redirect,
+body.light-mode .auth-redirect {
+  color: #6b7280;
+}
+
+[data-theme="light"] .orb,
+body.light-mode .orb {
+  opacity: 0.12;
+}
+
+[data-theme="light"] .grid-overlay,
+body.light-mode .grid-overlay {
+  background-image:
+    linear-gradient(rgba(102,126,234,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102,126,234,0.06) 1px, transparent 1px);
+}
+
+/* Signup-page light mode additional */
+[data-theme="light"] .form-section-label,
+body.light-mode .form-section-label {
+  color: #6b7280;
+}
+
+[data-theme="light"] .gender-option,
+body.light-mode .gender-option {
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #6b7280;
+  background: rgba(139, 92, 246, 0.04);
+}
+
+[data-theme="light"] .gender-option:hover,
+body.light-mode .gender-option:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  color: #4b5563;
+}
+
+[data-theme="light"] .gender-option-active,
+body.light-mode .gender-option-active {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}
+
+[data-theme="light"] .field-input-date,
+body.light-mode .field-input-date {
+  color-scheme: light;
+}
+
+
 /* ── Animated Background ──────────────────────────────────────── */
 .auth-bg {
   position: fixed;

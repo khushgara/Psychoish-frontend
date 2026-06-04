@@ -220,11 +220,6 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/blog" className="footer-link">
-                Blog
-              </Link>
-            </li>
-            <li>
               <Link to="/stories" className="footer-link">
                 Success Stories
               </Link>
@@ -314,7 +309,7 @@ const Footer = () => {
                   />
                 </svg>
               </span>
-              <span>support@psychoish.com</span>
+              <span>help.psychoish@khushagra.in</span>
             </div>
             <div className="contact-item">
               <span className="contact-icon">
@@ -333,7 +328,7 @@ const Footer = () => {
                   />
                 </svg>
               </span>
-              <span>1-800-HELP-NOW</span>
+              <span>+91 88248 01907</span>
             </div>
           </div>
         </div>
