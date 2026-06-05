@@ -8,7 +8,18 @@ const API_URL = API_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("token");
+    if (urlToken) {
+      localStorage.setItem("token", urlToken);
+      // Clean query parameter from address bar
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+      return urlToken;
+    }
+    return localStorage.getItem("token");
+  });
   const [loading, setLoading] = useState(true);
 
   // Create axios instance with base URL - memoized to prevent recreation on every render

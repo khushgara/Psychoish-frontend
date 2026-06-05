@@ -20,6 +20,7 @@ import PrivacyPolicy from "./pages/Legal/PrivacyPolicy";
 import TermsOfUse from "./pages/Legal/TermsOfUse";
 import CrisisResources from "./pages/Legal/CrisisResources";
 import SuccessStories from "./pages/Stories/Stories";
+import GoogleCallback from "./pages/GoogleCallback/GoogleCallback";
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -52,6 +53,7 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/auth/google/callback" element={<GoogleCallback />} />
             <Route path="/about" element={<About />} />
             <Route path="/therapies" element={<Therapies />} />
             <Route path="/blog" element={<Blog />} />

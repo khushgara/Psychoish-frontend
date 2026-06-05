@@ -566,3 +566,50 @@ body.light-mode .field-input-date {
     font-size: 1.3rem;
   }
 }
+
+/* ── Google Auth Button ───────────────────────────────────────── */
+.google-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.google-auth-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.google-auth-btn:active {
+  transform: translateY(0);
+}
+
+/* Light mode overrides */
+[data-theme="light"] .google-auth-btn,
+body.light-mode .google-auth-btn {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .google-auth-btn:hover,
+body.light-mode .google-auth-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}

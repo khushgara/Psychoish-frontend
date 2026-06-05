@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PixelTransition from "../../components/PixelTransition/PixelTransition";
 import brainHero from "../../assets/images/brain_hero.png";
+import { AuthContext } from "../../context/AuthContext";
 import "./Home.css";
 
 function Home() {
+  const { isAuthenticated } = useContext(AuthContext);
   const assessments = [
     {
       type: "mood",
@@ -69,9 +71,15 @@ function Home() {
             </p>
             
             <div className="hero-buttons">
-              <Link to="/signup" className="btn-primary">
-                Start Free Assessment
-              </Link>
+              {isAuthenticated ? (
+                <Link to="/therapies" className="btn-primary">
+                  Start Free Assessment
+                </Link>
+              ) : (
+                <Link to="/signup" className="btn-primary">
+                  Start Free Assessment
+                </Link>
+              )}
               <Link to="/therapies" className="btn-secondary">
                 Explore Tests
               </Link>
@@ -268,12 +276,25 @@ function Home() {
           <h2>Ready to Prioritize Your Mental Health?</h2>
           <p>Join thousands taking control of their mental wellness today. It starts with one small step.</p>
           <div className="cta-buttons">
-            <Link to="/signup" className="btn-primary-white">
-              Sign Up Free
-            </Link>
-            <Link to="/contact" className="btn-outline-white">
-              Talk to a Therapist
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link to="/dashboard" className="btn-primary-white">
+                  Go to Dashboard
+                </Link>
+                <Link to="/consultation" className="btn-outline-white">
+                  Talk to a Therapist
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/signup" className="btn-primary-white">
+                  Sign Up Free
+                </Link>
+                <Link to="/contact" className="btn-outline-white">
+                  Talk to a Therapist
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
